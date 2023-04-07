@@ -1,0 +1,42 @@
+{
+  "name": "nuxt-cms",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
+    }
+  },
+  "main": "./dist/module.cjs",
+  "types": "./dist/types.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "nuxt-module-build",
+    "dev": "nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.2.3",
+    "defu": "^6.1.2"
+  },
+  "devDependencies": {
+    "@nuxt/module-builder": "^0.2.1",
+    "@nuxt/schema": "^3.2.3",
+    "@nuxtjs/eslint-config-typescript": "^12.0.0",
+    "@vueuse/core": "^9.13.0",
+    "eslint": "^8.36.0",
+    "monaco-editor": "^0.36.1",
+    "nuxt": "^3.2.3",
+    "nuxt-monaco-editor": "^1.1.4"
+  },
+  "peerDependencies": {
+    "@nuxt/content": "^2.5.2",
+    "@nuxt/devtools-ui-kit": "^0.2.5",
+    "git-connect-lib": "workspace:^1.0.0"
+  }
+}

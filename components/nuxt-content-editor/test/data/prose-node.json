@@ -1,0 +1,58 @@
+{
+  "type": "doc",
+  "content": [ {
+      "type": "frontmatter",
+      "content": [
+        {
+          "type": "text",
+          "text": "\ntitle: Title\nsubtile: Subtitle\ndata:\n  - entry\n  - entry2"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "It is a raw link "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://example.com",
+                "target": "_blank",
+                "class": null
+              }
+            }
+          ],
+          "text": "https://example.com"
+        },
+        {
+          "type": "text",
+          "text": " and "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://example.com",
+                "target": "_blank",
+                "class": null
+              }
+            }
+          ],
+          "text": "another"
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
+      ]
+    }
+  ]
+}

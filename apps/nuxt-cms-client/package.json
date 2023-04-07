@@ -1,0 +1,36 @@
+{
+  "name": "nuxt-cms-client",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "peerDependencies": {
+    "nuxt": "^3.3.0"
+  },
+  "dependencies": {
+    "@anu-vue/nuxt": "^0.12.0",
+    "@anu-vue/preset-theme-default": "^0.12.0",
+    "@iconify-json/carbon": "^1.1.16",
+    "@iconify-json/ph": "^1.1.5",
+    "@nuxt/devtools-ui-kit": "^0.2.5",
+    "git-connect": "workspace:^1.0.0",
+    "git-connect-lib": "workspace:^1.0.0"
+  },
+  "devDependencies": {
+    "@grapoza/vue-tree": "^5.1.0",
+    "@nuxt/devtools": "npm:@nuxt/devtools-edge@latest",
+    "@nuxtjs/color-mode": "^3.2.0",
+    "@unocss/nuxt": "^0.50.6",
+    "@unocss/preset-icons": "^0.50.6",
+    "@unocss/runtime": "^0.50.6",
+    "@vueuse/nuxt": "^9.13.0",
+    "floating-vue": "2.0.0-beta.20",
+    "fuse.js": "^6.6.2",
+    "monaco-editor": "^0.36.1",
+    "nuxt-monaco-editor": "^1.1.4",
+    "splitpanes": "^3.1.5"
+  }
+}

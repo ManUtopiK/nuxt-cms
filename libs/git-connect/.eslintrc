@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "@nuxtjs/eslint-config-typescript"
+  ],
+  "rules": {
+    "camelcase": "off",
+    "semi": ["error", "never"],
+    "comma-dangle": ["error", "only-multiline"],
+    "vue/singleline-html-element-content-newline": "off",
+    "space-before-function-paren": ["error", "never"]
+  }
+}

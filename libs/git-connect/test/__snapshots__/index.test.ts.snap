@@ -1,0 +1,57 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Its createClient > returns github GitAuthClient 1`] = `
+GitConnectClient {
+  "api": "https://github.com",
+  "appId": "xxx",
+  "auth": GitAuthClient {
+    "Authenticator": PkceAuthenticator {
+      "appId": "xxx",
+      "authTokenUrl": "https://github.com/oauth/token",
+      "authUrl": "https://github.com/oauth/authorize",
+      "redirectPath": "/git-connect/redirect",
+    },
+    "access_token": undefined,
+    "config": {
+      "api": "https://github.com",
+      "appId": "xxx",
+      "authEndpoint": "oauth/authorize",
+      "authTokenEndpoint": "oauth/token",
+      "authType": "pkce",
+      "provider": "gitlab",
+      "redirectPath": "/git-connect/redirect",
+    },
+    "session": undefined,
+    "token_type": undefined,
+  },
+  "options": undefined,
+}
+`;
+
+exports[`Its createClient > returns gitlab GitAuthClient 1`] = `
+GitConnectClient {
+  "api": "https://gitlab.com",
+  "appId": "xxx",
+  "auth": GitAuthClient {
+    "Authenticator": PkceAuthenticator {
+      "appId": "xxx",
+      "authTokenUrl": "https://gitlab.com/oauth/token",
+      "authUrl": "https://gitlab.com/oauth/authorize",
+      "redirectPath": "/git-connect/redirect",
+    },
+    "access_token": undefined,
+    "config": {
+      "api": "https://gitlab.com",
+      "appId": "xxx",
+      "authEndpoint": "oauth/authorize",
+      "authTokenEndpoint": "oauth/token",
+      "authType": "pkce",
+      "provider": "gitlab",
+      "redirectPath": "/git-connect/redirect",
+    },
+    "session": undefined,
+    "token_type": undefined,
+  },
+  "options": undefined,
+}
+`;
