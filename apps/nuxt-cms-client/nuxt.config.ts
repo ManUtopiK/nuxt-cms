@@ -1,5 +1,5 @@
 import { defineNuxtConfig } from 'nuxt/config'
-import { ROUTE_CLIENT } from '../../modules/git-connect/src/constant'
+import { ROUTE_CLIENT } from '../../modules/nuxt-cms/src/constant'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig(() => {
@@ -34,7 +34,7 @@ export default defineNuxtConfig(() => {
       // '@cssninja/nuxt-media-viewer',
       '@unocss/nuxt',
       '@nuxtjs/color-mode',
-      'git-connect',
+      'nuxt-cms',
       // https://github.com/e-chan1007/nuxt-monaco-editor
       // 'nuxt-monaco-editor'
     ],

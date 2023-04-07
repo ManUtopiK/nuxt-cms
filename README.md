@@ -2,6 +2,8 @@
 
 The ubiquitous Content Management System.
 
+> **Warning**: Experimental and under heavy development. All are subject to change!
+
 ## Main idea
 
 - A single page application build with [Nuxt.js](https://nuxt.com) that works for and inside every git-based static website. It can run as a standalone application, or embedded in static site based on nuxt and nuxt-content (for now).
@@ -88,6 +90,8 @@ The editor will connect the marks and nodes of Tiptap with Vue components, allow
 - [alvarosabu/pnpm-monorepo-nuxt](https://github.com/alvarosabu/pnpm-monorepo-nuxt)
 - [KareemDa/pnpm-monorepo-nuxt-3](https://github.com/KareemDa/pnpm-monorepo-nuxt-3)
 
+---
+
 ## Installation
 
 Install packages:
@@ -96,21 +100,45 @@ Install packages:
 pnpm i
 ```
 
-Start dev mode:
+## To launch nuxt-cms in standalone mode :
+`/apps/nuxt-cms-client`
 
 ```shell
-pnpm run -r dev
+pnpm --filter nuxt-cms-client dev
 ```
 
-Build applications:
+## To launch playground-editor in standalone mode :
+`/apps/playground-editor`
 
 ```shell
-pnpm run -r build
+pnpm --filter playground-editor dev
 ```
 
-Start specific application:
+## To install nuxt-cms in your nuxt app 
+
+It works only with gitlab for now...
+
+1. Generate nuxt-cms-client:
 
 ```shell
-pnpm --filter nuxt-cms run dev
-pnpm --filter website2 run dev
+pnpm --filter nuxt-cms-client generate
+```
+2. Add nuxt-cms module to your `nuxt.config.ts`
+```
+export default defineNuxtConfig({
+  modules: [
+    '../../nuxt-cms/modules/nuxt-cms'
+  ],
+```
+3. Create an app token in gitlab at `profile/applications` with redirect uri as : `http://localhost:3000/admin/redirect` and `Confidential` option to `on`.
+   
+4. Configure nuxt-cms with your credentials in `nuxt.config.ts` or in a `.env` file
+```
+nuxtCms: {
+  remote: {
+    appId: yourGitlabAppToken
+    api: 'https://gitlab.com',
+    repo: 'username/repo'
+  }
+}
 ```

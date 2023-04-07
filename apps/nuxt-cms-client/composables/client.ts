@@ -1,7 +1,7 @@
 // import type { Lang } from 'shiki-es'
 // import { renderMarkdown } from './client-services/markdown'
 // import { renderCodeHighlight } from './client-services/shiki'
-import type { NuxtCmsClient, NuxtCmsHostClient, NuxtCmsIframeClient } from '../../../modules/git-connect/src/types'
+import type { NuxtCmsClient, NuxtCmsHostClient, NuxtCmsIframeClient } from '../../../modules/nuxt-cms/src/types'
 
 export function useClient() {
   return useState<NuxtCmsHostClient>('nuxt-cms-client')

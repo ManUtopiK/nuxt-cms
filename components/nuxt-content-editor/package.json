@@ -41,7 +41,10 @@
     "@tiptap/starter-kit": "2.0.2",
     "@tiptap/suggestion": "^2.0.2",
     "@tiptap/vue-3": "2.0.2",
+    "rehype-remark": "^9.1.2",
+    "rehype-stringify": "^9.0.3",
     "remark-frontmatter": "^4.0.1",
+    "remark-stringify": "^10.0.2",
     "tippy.js": "^6.3.7",
     "vue-tippy": "v6"
   },

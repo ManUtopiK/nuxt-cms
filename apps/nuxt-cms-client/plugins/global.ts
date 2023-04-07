@@ -1,7 +1,7 @@
-import type { NuxtCmsGlobal } from '../../../modules/git-connect/src/types'
+import type { NuxtCmsGlobal } from '../../../modules/nuxt-cms/src/types'
 import { createHooks } from 'hookable'
 import defu from 'defu'
-import { defaultOptions, ROUTE_CLIENT } from '../../../modules/git-connect/src/constant'
+import { defaultOptions, ROUTE_CLIENT } from '../../../modules/nuxt-cms/src/constant'
 
 import { createClient, GitConnectClient } from 'git-connect-lib'
 import type { GitConnectClientOptions } from 'git-connect-lib'
