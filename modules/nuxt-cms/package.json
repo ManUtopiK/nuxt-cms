@@ -1,6 +1,6 @@
 {
   "name": "nuxt-cms",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -37,6 +37,6 @@
   "peerDependencies": {
     "@nuxt/content": "^2.5.2",
     "@nuxt/devtools-ui-kit": "^0.2.5",
-    "git-connect-lib": "workspace:^1.0.0"
+    "git-connect-lib": "workspace:^"
   }
 }

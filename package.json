@@ -1,6 +1,6 @@
 {
-  "name": "nuxt-cms monorepo",
-  "version": "1.0.0",
+  "name": "nuxt-cms-monorepo",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {

@@ -16,8 +16,8 @@
     "@iconify-json/carbon": "^1.1.16",
     "@iconify-json/ph": "^1.1.5",
     "@nuxt/devtools-ui-kit": "^0.2.5",
-    "nuxt-cms": "workspace:^1.0.0",
-    "git-connect-lib": "workspace:^1.0.0"
+    "nuxt-cms": "workspace:^",
+    "git-connect-lib": "workspace:^"
   },
   "devDependencies": {
     "@grapoza/vue-tree": "^5.1.0",
