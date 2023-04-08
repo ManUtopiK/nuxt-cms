@@ -1,5 +1,6 @@
 export interface NuxtCMSFrameState {
   width: number
+  lastWidth: number
   height: number
   bottom: number
   left: number

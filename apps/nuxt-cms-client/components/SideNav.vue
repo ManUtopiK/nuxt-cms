@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const client = useClient()
 const tabs = useTabs()
-
 const frameState = useCmsFrameState()
+
 const vertical = computed(() => {
   return ['left', 'right'].includes(frameState.value.position)
 })
@@ -29,7 +29,7 @@ const vertical = computed(() => {
       <div v-if="vertical" h-1px w-8 mt-1 border="b base" />
     </div>
 
-    <SideNavItem :tab="{ title: 'Home', name: 'home', path: '/', icon: 'i-carbon-home' }" />
+    <MinimizeIframe />
     <SideNavItem v-for="tab of tabs.builtin.value" :key="tab.name" :tab="tab" />
     <template v-if="tabs.custom.value.length">
       <div h-1px w-8 my1 border="b base" />

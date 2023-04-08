@@ -2,7 +2,7 @@
 import { version } from '../../../../package.json'
 
 const client = useClient()
-
+console.log(client.value)
 const showDialog = ref(false)
 const showDropdown = ref(false)
 const radio = ref('a')
@@ -12,7 +12,7 @@ function onClick() {
 }
 
 definePageMeta({
-  icon: 'i-carbon-information',
+  icon: 'i-carbon-home',
   title: 'Overview',
   order: -100,
 })
@@ -22,20 +22,41 @@ definePageMeta({
   <div class="relative p-10 n-bg-base">
     <div class="w-full flex gap-4 mx-auto flex-col container">
 
-      <NCard class="p4">
-        <div class="n-header-upper">
-          {{ client?.user ? 'Connected with' : 'Connect an account' }}
-        </div>
-        <div v-if="client?.user" flex="~ gap-3" items-center>
-          <img :src="client.user.avatar_url" alt="client.user.username" rounded-full h-12 w-12 of-h>
-          <div>
-            <div class="font-bold">{{ client.user.name }}</div>
-            <div class="text-xs font-light">@{{ client.user.username }}</div>
-            <div class="text-sm text-gray">{{ client.user.commit_email }}</div>
+      <div flex flex-col gap-3 sm-flex-row>
+        <NCard p4 flex-1 of-hidden>
+          <div class="n-header-upper">
+            {{ client?.user ? 'Connected with' : 'Connect an account' }}
           </div>
-        </div>
-        <LoginRemote v-else />
-      </NCard>
+          <div v-if="client?.user" flex="~ gap-3" items-start>
+            <img :src="client.user.avatar_url" alt="client.user.username" rounded-full h-12 w-12 of-h>
+            <div>
+              <div class="font-bold">{{ client.user.name }}</div>
+              <div class="text-xs font-light">@{{ client.user.username }}</div>
+              <div class="text-sm text-gray">{{ client.user.commit_email }}</div>
+            </div>
+          </div>
+          <LoginRemote v-else />
+        </NCard>
+
+        <NCard p4 flex-1 of-hidden v-if="'api' in client.git">
+          <div class="n-header-upper">
+            Connected to
+          </div>
+          <div flex="~ gap-3" items-start>
+            <div
+              :class="client.git.repo?.includes('github.com') ? 'i-ph-github-logo-duotone' : 'i-ph-gitlab-logo-duotone'"
+              rounded-full h-12 w-12 flex-none />
+            <div>
+              <div class="font-bold">{{ client.git.repo }}</div>
+              <div class="text-xs font-light">Branch {{ client.git.branch }}</div>
+              <a :href="`${client.git.api}/${client.git.repo}`" target="_blank"
+                class="text-sm text-gray lowercase hover:underline">
+                {{ `${client.git.api.replace(/https?:\/\//, '')}/${client.git.repo}` }}
+              </a>
+            </div>
+          </div>
+        </NCard>
+      </div>
 
       <div class="flex gap-3">
         <NuxtLink to="/">Home</NuxtLink>

@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 definePageMeta({
-  icon: 'i-carbon-star',
-  title: 'Favorites'
+  icon: 'i-carbon-help',
+  title: 'Overview',
+  order: 100,
 })
 </script>
 

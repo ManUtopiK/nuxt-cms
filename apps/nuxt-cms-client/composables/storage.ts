@@ -20,9 +20,11 @@ const cmsSettingsRefs = toRefs(cmsSettings)
 const cmsChanges = useLocalStorage('nuxt-cms-changes', [])
 
 const cmsFrameState = useLocalStorage<CmsFrameState>('nuxt-cms-frame-state', {
+  width: 0,
+  lastWidth: 0,
   position: 'left',
   open: true
-} as any, { listenToStorageChanges: false })
+} as any, { listenToStorageChanges: true })
 
 const cmsPanelsState = useLocalStorage<Record<string, number>>('nuxt-cms-panels-state', {} as any, { listenToStorageChanges: false })
 

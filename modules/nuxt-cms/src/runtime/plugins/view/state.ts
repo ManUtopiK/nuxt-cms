@@ -10,7 +10,8 @@ export type ViewMode = 'default' | 'component-inspector'
 export const viewMode = ref<ViewMode>('default')
 
 export const state = useObjectStorage<NuxtCMSFrameState>('nuxt-cms-frame-state', {
-  width: 50,
+  width: 0,
+  lastWidth: 0,
   height: 100,
   bottom: 0,
   left: 0,

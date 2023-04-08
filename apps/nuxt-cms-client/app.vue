@@ -15,6 +15,9 @@ useHead({
       content: 'width=device-width, initial-scale=1',
     },
   ],
+  htmlAttrs: {
+    class: 'of-hidden'
+  },
   // link: [
   //   {
   //     rel: 'icon',
@@ -32,9 +35,15 @@ useHead({
 //   }
 // })
 
-const {
-  scale,
-} = useCmsSettings()
+const frameState = useCmsFrameState()
+
+onBeforeMount(() => {
+  // We reset the width of the iframe before mounting
+  // No effect in standalone mode
+  frameState.value.width = 0
+})
+
+const { scale } = useCmsSettings()
 
 onMounted(() => {
   // Used to inject client in IframeView.vue
