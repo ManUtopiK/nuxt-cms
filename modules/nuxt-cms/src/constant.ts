@@ -1,4 +1,4 @@
-import type { ModuleOptions } from './types'
+import type { ModuleOptions } from '../../nuxt-cms-kit/src/types'
 
 export const ROUTE_PATH = '/__nuxt_cms__'
 export const ROUTE_ENTRY = `${ROUTE_PATH}/entry`
@@ -11,7 +11,7 @@ export const defaultOptions: ModuleOptions = {
     appId: '',
     repo: '',
     branch: 'main',
-    redirectPath: '/admin/redirect',
+    redirectPath: '/admin/redirect'
   },
   devSource: 'repo'
 }

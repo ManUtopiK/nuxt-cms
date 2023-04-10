@@ -1,5 +1,5 @@
-import { join } from 'pathe'
 import { existsSync } from 'node:fs'
+import { join } from 'pathe'
 import type { Nuxt } from 'nuxt/schema'
 import { addServerHandler, defineNuxtModule, createResolver, addComponentsDir, addImports, addImportsDir, addPlugin, addServerPlugin, extendPages, installModule, logger } from '@nuxt/kit'
 import type { ViteDevServer } from 'vite'
@@ -9,23 +9,20 @@ import sirv from 'sirv'
 import c from 'picocolors'
 
 import NuxtMonacoEditor from 'nuxt-monaco-editor'
-// import NuxtProxy from 'nuxt-proxy'
 
-// import { setupRPC } from './server-rpc'
-import type { ModuleOptions } from './types'
+import { version } from '../package.json'
+import type { ModuleOptions } from '../../nuxt-cms-kit/src/types'
 import { clientDir, monorepoDir, packageDir, runtimeDir } from './dirs'
 import { ROUTE_CLIENT, ROUTE_ENTRY } from './constant'
-import { version } from '../package.json'
-import './types/hooks'
 
 // https://github.com/nuxtlabs/github-module/blob/main/src/module.ts
-export async function enableModule(options: ModuleOptions, nuxt: Nuxt) {
+export async function enableModule (options: ModuleOptions, nuxt: Nuxt) {
   // TODO Check if remote is an Array
   const config: ModuleOptions = defu({
     remote: {
       api: process.env.api,
       appId: process.env.appId,
-      repo: process.env.repo,
+      repo: process.env.repo
     }
   }, options)
 
@@ -40,10 +37,7 @@ export async function enableModule(options: ModuleOptions, nuxt: Nuxt) {
 
   nuxt.options.build.transpile.push(runtimeDir)
 
-  addPlugin({
-    src: join(runtimeDir, 'plugins/nuxt-cms.client'),
-    mode: 'client',
-  })
+  addPlugin(join(runtimeDir, 'plugins/nuxt-cms.client'))
   // addServerPlugin(resolve(runtimeDir, 'before-parse-content'))
 
   // Add possibility to write local file in dev mode. Config dev API routes to read and write files.
@@ -70,7 +64,7 @@ export async function enableModule(options: ModuleOptions, nuxt: Nuxt) {
 
   extendPages((pages) => {
     // Add redirectPath page
-    if (config.remote?.redirectPath)
+    if (config.remote?.redirectPath) {
       pages.push({
         name: 'GitConnectRedirectPage',
         path: config.remote?.redirectPath as string,
@@ -79,6 +73,7 @@ export async function enableModule(options: ModuleOptions, nuxt: Nuxt) {
           layout: false
         }
       })
+    }
   })
 
   // Register components
@@ -102,8 +97,8 @@ export async function enableModule(options: ModuleOptions, nuxt: Nuxt) {
   const clientDirExists = existsSync(clientDir)
 
   // Mount nuxt-cms-client
-  if (nuxt.options.dev && config.mode === 'embedded') {
-    nuxt.hook('nitro:config', async (nitroConfig) => {
+  if (config.mode !== 'standalone') {
+    nuxt.hook('nitro:config', (nitroConfig) => {
       nitroConfig.publicAssets ||= []
       nitroConfig.publicAssets.push({
         dir: join(monorepoDir, 'apps/nuxt-cms-client/.output/public'),
@@ -149,7 +144,6 @@ export async function enableModule(options: ModuleOptions, nuxt: Nuxt) {
 
   logger.success(`Nuxt CMS is enabled ${c.dim(`v${version}`)} ${c.yellow('(experimental)')}`)
 
-
   // @ts-ignore
   // console.log(nuxt)
   // nuxt.hook('nitro:config', async (nitro) => {
@@ -172,5 +166,4 @@ export async function enableModule(options: ModuleOptions, nuxt: Nuxt) {
   //     }
   //   })
   // })
-
 }

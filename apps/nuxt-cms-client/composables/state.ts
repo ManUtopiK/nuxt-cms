@@ -2,12 +2,12 @@ import type { Component } from 'nuxt/schema'
 import { $fetch } from 'ofetch'
 import type { Ref } from 'vue'
 import { objectPick } from '@antfu/utils'
-import type { HookInfo, ModuleBuiltinTab, ModuleCustomTab, RouteInfo } from '../types'
+import type { HookInfo, ModuleBuiltinTab, ModuleCustomTab, RouteInfo } from '../../../modules/nuxt-cms-kit/src/types'
 
-export async function useFileStore() {
+export async function useFileStore () {
   const client = useClient()
 
-  if (!client.value.git?.files) client.value.git.files = await useFetchRepoContent()
+  if (!client.value.git?.files) { client.value.git.files = await useFetchRepoContent() }
 
   return client.value.git.files
 }
@@ -74,7 +74,7 @@ export async function useFileStore() {
 //   return useAsyncState('getCustomTabs', () => rpc.getCustomTabs())
 // }
 
-export function useTabs() {
+export function useTabs () {
   const router = useRouter()
   const customTabs = ref<ModuleCustomTab[]>([]) // useCustomTabs()
   const settings = useCmsSettings()
@@ -103,13 +103,13 @@ export function useTabs() {
     custom: customCustom,
     builtin: computed(() => [
       ...builtin.value,
-      ...builtInCustom.value,
+      ...builtInCustom.value
     ]),
     all: computed(() => [
       ...builtin.value,
       ...builtInCustom.value,
-      ...customCustom.value,
-    ]),
+      ...customCustom.value
+    ])
   }
 }
 

@@ -2,7 +2,7 @@ import type { AppConfig } from 'nuxt/schema'
 import type { NuxtApp } from 'nuxt/dist/app/nuxt'
 import type { Hookable } from 'hookable'
 import type { GitConnectClientOptions, GitConnectClient } from 'git-connect-lib'
-import type { Remote } from './module'
+import type { Remote } from './module-options'
 
 export interface NuxtCmsClientHooks {
   /**

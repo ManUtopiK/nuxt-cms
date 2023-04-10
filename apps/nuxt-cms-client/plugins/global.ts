@@ -1,10 +1,10 @@
-import type { NuxtCmsGlobal } from '../../../modules/nuxt-cms/src/types'
 import { createHooks } from 'hookable'
 import defu from 'defu'
-import { defaultOptions, ROUTE_CLIENT } from '../../../modules/nuxt-cms/src/constant'
 
 import { createClient, GitConnectClient } from 'git-connect-lib'
 import type { GitConnectClientOptions } from 'git-connect-lib'
+import { defaultOptions, ROUTE_CLIENT } from '../../../modules/nuxt-cms/src/constant'
+import type { NuxtCmsGlobal } from '../../../modules/nuxt-cms-kit/src/types'
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   const client = useClient()
@@ -31,7 +31,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     // const { git, user } = useCms()
     console.log(config, remote)
     // No api or appId. We can do nothing.
-    if (!remote.api || !remote.appId) return
+    if (!remote.api || !remote.appId) { return }
 
     // We can create a git client
     const gitConnectClient = createClient(remote) as GitConnectClient
@@ -59,8 +59,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       await gitConnectClient.auth.refreshToken(refreshToken.value)
       const user = await gitConnectClient.auth.getUser()
 
-      if (user)
-        clientTemp.user = user
+      if (user) { clientTemp.user = user }
     }
 
     client.value = markRaw(clientTemp)
@@ -70,10 +69,9 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   }
 
   window.__NUXT_CMS_VIEW__ = <NuxtCmsGlobal>{
-    setClient(_client) {
+    setClient (_client) {
       console.log('Set client', client.value === _client, client.value, _client)
-      if (client.value === _client)
-        return
+      if (client.value === _client) { return }
 
       client.value = _client
 
@@ -81,8 +79,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         console.log('host:update:reactivity', _client, client)
         // TODO: use triggerRef after: https://github.com/vuejs/core/pull/7507
         // triggerRef(client)
-        if (client.value)
-          client.value = { ...client.value }
+        if (client.value) { client.value = { ...client.value } }
       })
       // _client.hooks.hook('host:inspector:close', () => {
       //   if (router.currentRoute.value.path === '/__inspecting')
@@ -95,15 +92,13 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         console.log('hook:host:content:edit', path)
       })
 
-      // eslint-disable-next-line no-console
       console.log('[nuxt-cms] Client connected', _client)
-    },
+    }
   }
 
   router.afterEach(() => {
     const path = router.currentRoute.value.path
-    if (path.includes('__'))
-      return
+    if (path.includes('__')) { return }
     client.value?.hooks.callHook('host:navigate', path)
   })
 })

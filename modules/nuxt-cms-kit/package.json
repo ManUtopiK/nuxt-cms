@@ -1,0 +1,53 @@
+{
+  "name": "nuxt-cms-kit",
+  "type": "module",
+  "version": "0.0.1",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    },
+    "./types": {
+      "types": "./types.d.ts",
+      "require": "./dist/types.cjs",
+      "import": "./dist/types.mjs"
+    },
+    "./iframe-client": {
+      "types": "./iframe-client.d.ts",
+      "require": "./dist/iframe-client.cjs",
+      "import": "./dist/iframe-client.mjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "*.d.ts",
+    "*.cjs",
+    "*.mjs"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "stub": "unbuild --stub",
+    "dev:prepare": "nr stub",
+    "prepublishOnly": "pnpm build"
+  },
+  "peerDependencies": {
+    "nuxt": "^3.3.1",
+    "vite": "*"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.3.3",
+    "@nuxt/schema": "^3.3.3",
+    "execa": "^7.1.1"
+  },
+  "devDependencies": {
+    "hookable": "^5.5.3",
+    "unbuild": "^1.2.0",
+    "unimport": "^3.0.6",
+    "vue-router": "^4.1.6",
+    "git-connect-lib": "workspace:^"
+  }
+}

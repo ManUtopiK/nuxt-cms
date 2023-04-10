@@ -1,10 +1,10 @@
 import { toRefs, useLocalStorage } from '@vueuse/core'
 
-import type { CmsFrameState, CmsUISettings } from '~/types/ui-state'
+import type { NuxtCMSFrameState, NuxtCMSUISettings } from '../../../modules/nuxt-cms/src/types'
 
 export const isFirstVisit = useLocalStorage('nuxt-cms-first-visit', true)
 
-const cmsSettings = useLocalStorage<CmsUISettings>('nuxt-cms-settings', {
+const cmsSettings = useLocalStorage<NuxtCMSUISettings>('nuxt-cms-settings', {
   componentsView: 'list',
   componentsGraphShowNodeModules: false,
   componentsGraphShowPages: false,
@@ -12,14 +12,14 @@ const cmsSettings = useLocalStorage<CmsUISettings>('nuxt-cms-settings', {
   componentsGraphShowWorkspace: true,
   interactionCloseOnOutsideClick: false,
   showExperimentalFeatures: false,
-  scale: 1,
+  scale: 1
 }, { mergeDefaults: true })
 
 const cmsSettingsRefs = toRefs(cmsSettings)
 
 const cmsChanges = useLocalStorage('nuxt-cms-changes', [])
 
-const cmsFrameState = useLocalStorage<CmsFrameState>('nuxt-cms-frame-state', {
+const cmsFrameState = useLocalStorage<NuxtCMSFrameState>('nuxt-cms-frame-state', {
   width: 0,
   lastWidth: 0,
   position: 'left',
@@ -28,18 +28,18 @@ const cmsFrameState = useLocalStorage<CmsFrameState>('nuxt-cms-frame-state', {
 
 const cmsPanelsState = useLocalStorage<Record<string, number>>('nuxt-cms-panels-state', {} as any, { listenToStorageChanges: false })
 
-export function useCmsSettings() {
+export function useCmsSettings () {
   return cmsSettingsRefs
 }
 
-export function useCmsChanges() {
+export function useCmsChanges () {
   return cmsChanges
 }
 
-export function useCmsFrameState() {
+export function useCmsFrameState () {
   return cmsFrameState
 }
 
-export function useCmsPanelsState() {
+export function useCmsPanelsState () {
   return cmsPanelsState
 }

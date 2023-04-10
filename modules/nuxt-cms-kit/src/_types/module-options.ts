@@ -1,3 +1,5 @@
+import type { ModuleCustomTab } from './custom-tabs'
+
 export interface Remote {
   /**
    * Provider api
@@ -57,6 +59,13 @@ export interface ModuleOptions {
    * One remote represent a git provider (gitlab or github) and a git repository.
    */
   remote?: Remote | Remote[]
+
+  /**
+   * Custom tabs
+   *
+   * This is in static format, for dynamic injection, call `nuxt.hook('devtools:customTabs')` instead
+   */
+  customTabs?: ModuleCustomTab[]
 
   /**
    * Development source of repo

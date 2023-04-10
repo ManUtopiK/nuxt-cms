@@ -4,20 +4,21 @@ import 'floating-vue/dist/style.css'
 import 'splitpanes/dist/splitpanes.css'
 import './styles/global.css'
 
-if (process.client)
+if (process.client) {
   import('./setup/unocss-runtime')
+}
 
 useHead({
   title: 'Nuxt CMS',
   meta: [
     {
       name: 'viewport',
-      content: 'width=device-width, initial-scale=1',
-    },
+      content: 'width=device-width, initial-scale=1'
+    }
   ],
   htmlAttrs: {
     class: 'of-hidden'
-  },
+  }
   // link: [
   //   {
   //     rel: 'icon',

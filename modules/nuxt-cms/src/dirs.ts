@@ -17,13 +17,15 @@ const globalInstallMatch = [
   '/.fnm/',
   // On Windows
   '/nvm/versions/',
-  '/n/versions/',
+  '/n/versions/'
   // TODO: More info for other package managers
 ]
 
-export function isGlobalInstall() {
-  if (isInstalledGlobally)
+export function isGlobalInstall () {
+  if (isInstalledGlobally) {
     return true
+  }
+
   const dir = packageDir.replace(/\\/g, '/')
   return globalInstallMatch.some(i => dir.includes(i))
 }

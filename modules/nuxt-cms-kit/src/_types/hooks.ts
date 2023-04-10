@@ -1,4 +1,4 @@
-// import type { ModuleCustomTab } from './custom-tabs'
+import type { ModuleCustomTab } from './custom-tabs'
 
 declare module '@nuxt/schema' {
   interface NuxtHooks {
@@ -15,7 +15,7 @@ declare module '@nuxt/schema' {
     /**
      * Hooks to extend cms tabs.
      */
-    // 'cms:customTabs': (tabs: ModuleCustomTab[]) => void
+    'cms:customTabs': (tabs: ModuleCustomTab[]) => void
 
     /**
      * Retrigger update for custom tabs, `cms:customTabs` will be called again.

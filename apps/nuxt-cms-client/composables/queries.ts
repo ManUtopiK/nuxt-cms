@@ -1,4 +1,4 @@
-import { parseFrontMatter, stringifyFrontMatter } from "remark-mdc"
+import { parseFrontMatter, stringifyFrontMatter } from 'remark-mdc'
 
 interface Document {
   id: string
@@ -14,10 +14,10 @@ interface Document {
   }
 }
 
-export function useFetchRemote() {
+export function useFetchRemote () {
   const client = useClient()
 
-  async function fetch({ query, variables }: { query: any, variables?: object }) {
+  async function fetch ({ query, variables }: { query: any, variables?: object }) {
     const { api, repo, auth } = client.value.git
     const variablesWithRepo = { repo, ...variables }
 
@@ -25,19 +25,19 @@ export function useFetchRemote() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: await auth.getToken(),
+        Authorization: await auth.getToken()
       },
-      body: JSON.stringify({ query, variables: variablesWithRepo }),
+      body: JSON.stringify({ query, variables: variablesWithRepo })
     })
 
-    if (!data) throw `Cannot connect to ${api}/${repo}`
+    if (!data) { throw `Cannot connect to ${api}/${repo}` }
     return data
   }
 
   return { fetch }
 }
 
-export async function useFetchRepoContent() {
+export async function useFetchRepoContent () {
   const { fetch } = useFetchRemote()
 
   const blobsFragment = `#graphql
@@ -78,8 +78,7 @@ export async function useFetchRepoContent() {
     recursive: boolean,
     branch: String
   ) => {
-
-    let files = []
+    const files = []
     let response
     let cursor
     do {
@@ -89,8 +88,8 @@ export async function useFetchRepoContent() {
           branch,
           path,
           recursive,
-          cursor,
-        },
+          cursor
+        }
       })
       files.push(...response.project.repository.tree.blobs.nodes)
       cursor = response.project.repository.tree.blobs.pageInfo.endCursor
@@ -114,15 +113,15 @@ export async function useFetchRepoContent() {
         }
         `,
       variables: {
-        paths: files.map((file) => file.path),
-      },
+        paths: files.map(file => file.path)
+      }
     })
 
     // Parse content
     files.map((file) => {
       // Add body to item
       const body = data.project.repository.blobs.nodes.find(
-        (blob) => blob.id === file.id
+        blob => blob.id === file.id
       ).rawBlob
 
       // TODO get frontmatter title or file name ?
@@ -149,11 +148,11 @@ export async function useFetchRepoContent() {
     return files
   }
 
-  const files = await listAllFilesGraphQL("content", true, "main")
+  const files = await listAllFilesGraphQL('content', true, 'main')
   return files
 }
 
-export async function useFetchAllFiles() {
+export async function useFetchAllFiles () {
   // const useMyFetch = createFetch({
   //   baseUrl: $git.auth.config.baseUrl,
   //   combination: 'overwrite',
@@ -224,9 +223,8 @@ export async function useFetchAllFiles() {
     recursive: boolean,
     branch: String
   ) => {
-
-    let tree = []
-    let files = []
+    const tree = []
+    const files = []
     let response
     let cursor
     do {
@@ -236,8 +234,8 @@ export async function useFetchAllFiles() {
           branch,
           path,
           recursive,
-          cursor,
-        },
+          cursor
+        }
       })
       files.push(...response.project.repository.tree.blobs.nodes)
       cursor = response.project.repository.tree.blobs.pageInfo.endCursor
@@ -261,7 +259,7 @@ export async function useFetchAllFiles() {
             // console.log(parent)
             // parent.treeNodeSpec.customizations.classes.treeViewNodeSelf = 'loading'
             // const children = new Promise(resolve => setTimeout(resolve, 2000000))
-            const children = await listAllFilesGraphQL(parent.path, false, "main")
+            const children = await listAllFilesGraphQL(parent.path, false, 'main')
             return children
           }
         }
@@ -285,15 +283,15 @@ export async function useFetchAllFiles() {
         }
         `,
       variables: {
-        paths: files.map((file) => file.path),
-      },
+        paths: files.map(file => file.path)
+      }
     })
 
     // Parse content
     files.forEach((file) => {
       // Add body to item
       const body = data.project.repository.blobs.nodes.find(
-        (blob) => blob.id === file.id
+        blob => blob.id === file.id
       ).rawBlob
 
       // TODO get frontmatter title or file name ?
@@ -326,6 +324,6 @@ export async function useFetchAllFiles() {
     return tree
   }
 
-  const files = await listAllFilesGraphQL("content", false, "main")
+  const files = await listAllFilesGraphQL('content', false, 'main')
   return files
 }

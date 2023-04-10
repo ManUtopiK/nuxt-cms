@@ -22,10 +22,15 @@ const reverse = computed(() => {
       </div>
     </div>
 
-    <div v-else class="default-layout absolute grid h-full w-full of-hidden border-base"
-      :class="[`layout-${frameState.position || 'left'}`, vertical ? `${reverse ? 'border-l' : 'border-r'}` : `${reverse ? 'border-t' : 'border-b'}`]">
-      <SideNav class="side-nav grid-area-[sidebar] sticky top-0 border-base"
-        :class="vertical ? `h-screen flex-col of-y-auto ${reverse ? 'border-l' : 'border-r'}` : `w-screen flex-row ${reverse ? 'border-t' : 'border-b'}`" />
+    <div
+      v-else
+      class="default-layout absolute grid h-full w-full of-hidden border-base"
+      :class="[`layout-${frameState.position || 'left'}`, vertical ? `${reverse ? 'border-l' : 'border-r'}` : `${reverse ? 'border-t' : 'border-b'}`]"
+    >
+      <SideNav
+        class="side-nav grid-area-[sidebar] sticky top-0 border-base"
+        :class="vertical ? `h-screen flex-col of-y-auto ${reverse ? 'border-l' : 'border-r'}` : `w-screen flex-row ${reverse ? 'border-t' : 'border-b'}`"
+      />
 
       <div class="grid-area-[body]" :class="vertical ? 'h-full' : 'w-full'" of-auto>
         <slot />

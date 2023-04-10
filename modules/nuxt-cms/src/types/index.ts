@@ -1,3 +1,2 @@
-export * from './module'
-export * from './client-api'
+export * from 'nuxt-cms-kit'
 export * from './ui-state'

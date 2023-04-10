@@ -1,3 +1,3 @@
-export function useDevtoolsClient() {
+export function useDevtoolsClient () {
   return ref()
 }

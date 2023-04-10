@@ -1,48 +1,6 @@
 import type { VNode } from 'vue'
 import type { MaybeComputedRef } from '@vueuse/head'
 
-export interface ModuleCustomTab {
-  /**
-   * The name of the tab, must be unique
-   */
-  name: string
-  /**
-   * Icon of the tab, support any Iconify icons, or a url to an image
-   */
-  icon?: string
-  /**
-   * Title of the tab
-   */
-  title: string
-  /**
-   * Main view of the tab
-   */
-  view: ModuleView
-  /**
-   * Insert static vnode to the tab entry
-   *
-   * Advanced options. You don't usually need this.
-   */
-  extraTabVNode?: VNode
-
-  badge?: MaybeComputedRef<string> | MaybeComputedRef<number>
-  badgeColor?: MaybeComputedRef<string>
-}
-
-export interface ModuleLaunchView {
-  /**
-   * A view for module to lazy launch some actions
-   */
-  type: 'launch'
-  title?: string
-  icon?: string
-  description: string
-  /**
-   * Action buttons
-   */
-  actions: ModuleLaunchAction[]
-}
-
 export interface ModuleIframeView {
   /**
    * Iframe view
@@ -68,7 +26,7 @@ export interface ModuleVNodeView {
   /**
    * Send vnode to the client, they must be static and serializable
    *
-   * Call `nuxt.hook('devtools:customTabs:refresh')` to trigger manual refresh
+   * Call `nuxt.hook('cms:customTabs:refresh')` to trigger manual refresh
    */
   vnode: VNode
 }
@@ -97,7 +55,49 @@ export interface ModuleLaunchAction {
   src?: string
 }
 
+export interface ModuleLaunchView {
+  /**
+   * A view for module to lazy launch some actions
+   */
+  type: 'launch'
+  title?: string
+  icon?: string
+  description: string
+  /**
+   * Action buttons
+   */
+  actions: ModuleLaunchAction[]
+}
+
 export type ModuleView = ModuleIframeView | ModuleLaunchView | ModuleVNodeView
+
+export interface ModuleCustomTab {
+  /**
+   * The name of the tab, must be unique
+   */
+  name: string
+  /**
+   * Icon of the tab, support any Iconify icons, or a url to an image
+   */
+  icon?: string
+  /**
+   * Title of the tab
+   */
+  title: string
+  /**
+   * Main view of the tab
+   */
+  view: ModuleView
+  /**
+   * Insert static vnode to the tab entry
+   *
+   * Advanced options. You don't usually need this.
+   */
+  extraTabVNode?: VNode
+
+  badge?: MaybeComputedRef<string> | MaybeComputedRef<number>
+  badgeColor?: MaybeComputedRef<string>
+}
 
 export interface ModuleIframeTabLazyOptions {
   description?: string
@@ -110,8 +110,7 @@ export interface ModuleBuiltinTab {
   title?: string
   path?: string
   requireClient?: boolean
-  badge?: MaybeComputedRef<string> | MaybeComputedRef<number>
-  badgeColor?: MaybeComputedRef<string>
+  shouldShow?: () => boolean
 }
 
 export type ModuleTabInfo = ModuleCustomTab | ModuleBuiltinTab
