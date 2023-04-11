@@ -4,10 +4,6 @@ import 'floating-vue/dist/style.css'
 import 'splitpanes/dist/splitpanes.css'
 import './styles/global.css'
 
-if (process.client) {
-  import('./setup/unocss-runtime')
-}
-
 useHead({
   title: 'Nuxt CMS',
   meta: [
