@@ -11,7 +11,7 @@ import NuxtMonacoEditor from 'nuxt-monaco-editor'
 
 import { version } from '../package.json'
 import type { ModuleOptions } from '../../nuxt-cms-kit/src/types'
-import { devCmsClient, generateCmsClient } from './build'
+import { devCmsClient, generateCmsClient } from './utils'
 
 import { clientDir, monorepoDir, packageDir, runtimeDir } from './dirs'
 import { ROUTE_CLIENT, ROUTE_ENTRY } from './constant'
@@ -99,6 +99,7 @@ export async function enableModule (options: ModuleOptions, nuxt: Nuxt) {
   const clientDirExists = existsSync(clientDir)
   if (clientDirExists) {
     // Mount client
+    // Can't use process.dev here
     if (process.env.NODE_ENV === 'development') {
       const PORT = await getPort({ port: 12442 })
 
