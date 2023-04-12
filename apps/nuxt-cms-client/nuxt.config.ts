@@ -8,12 +8,12 @@ export default defineNuxtConfig(() => {
   const nuxtCms = !isDev
     ? undefined
     : {
-        // mode: 'standalone',
-        remote: {
-          api: 'https://gitlab.com',
-          repo: 'ManUtopiK/test-nuxt-git-cms'
-        }
+      // mode: 'standalone',
+      remote: {
+        api: 'https://gitlab.com',
+        repo: 'ManUtopiK/test-nuxt-git-cms'
       }
+    }
 
   return {
     // experimental: {
@@ -30,13 +30,13 @@ export default defineNuxtConfig(() => {
     modules: [
       // '@anu-vue/nuxt',
       '@nuxt/devtools-ui-kit',
-      '@nuxt/devtools',
+      // '@nuxt/devtools',
       '@vueuse/nuxt',
       // https://github.com/cssninjaStudio/nuxt-media-viewer
       // '@cssninja/nuxt-media-viewer',
       '@unocss/nuxt',
       '@nuxtjs/color-mode'
-      // 'nuxt-cms'
+      // 'nuxt-cms',
       // https://github.com/e-chan1007/nuxt-monaco-editor
       // 'nuxt-monaco-editor'
     ],

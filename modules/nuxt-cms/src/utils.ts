@@ -20,7 +20,9 @@ export function devCmsClient (args: string[]) {
     env: {
       COLORS: 'true',
       FORCE_COLOR: 'true',
-      NUXT_CMS_EMBEDDED: 'true'
+      NUXT_CMS_EMBEDDED: 'true',
+      // Pass the local directory for dev mode
+      NUXT_CMS_HOST_DIR: process.cwd()
     }
   })
 }
