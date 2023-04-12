@@ -16,7 +16,7 @@ import { clientDir, monorepoDir, packageDir, runtimeDir } from './dirs'
 import { ROUTE_CLIENT, ROUTE_ENTRY } from './constant'
 
 // https://github.com/nuxtlabs/github-module/blob/main/src/module.ts
-export async function enableModule (options: ModuleOptions, nuxt: Nuxt) {
+export async function enableModule(options: ModuleOptions, nuxt: Nuxt) {
   // TODO Check if remote is an Array
   const config: ModuleOptions = defu({
     remote: {
@@ -39,19 +39,6 @@ export async function enableModule (options: ModuleOptions, nuxt: Nuxt) {
 
   addPlugin(join(runtimeDir, 'plugins/nuxt-cms.client'))
   // addServerPlugin(resolve(runtimeDir, 'before-parse-content'))
-
-  // Add possibility to write local file in dev mode. Config dev API routes to read and write files.
-  // TODO Done ? Use addDevServerHandler ? https://github.com/nuxt/nuxt/blob/80516147380a9b918a4d5d8d8e3ba02e8450561e/packages/kit/src/nitro.ts#L31
-  if (nuxt.options.dev && config.devSource === 'local') {
-    addServerHandler({
-      route: '/api/_file/:slug',
-      handler: join(runtimeDir, 'server/api/file.get')
-    })
-    addServerHandler({
-      route: '/api/_file/:slug',
-      handler: join(runtimeDir, 'server/api/file.put')
-    })
-  }
 
   // Install monaco editor module
   installModule(NuxtMonacoEditor)
