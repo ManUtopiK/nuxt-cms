@@ -5,13 +5,15 @@ import { ROUTE_CLIENT } from '../../modules/nuxt-cms/src/constant'
 export default defineNuxtConfig(() => {
   const isDev = process.env.NODE_ENV === 'development'
 
-  const nuxtCms = !isDev ? undefined : {
-    mode: 'standalone',
-    remote: {
-      api: 'https://gitlab.com',
-      repo: 'ManUtopiK/test-nuxt-git-cms'
+  const nuxtCms = !isDev
+    ? undefined
+    : {
+      // mode: 'standalone',
+      remote: {
+        api: 'https://gitlab.com',
+        repo: 'ManUtopiK/test-nuxt-git-cms'
+      }
     }
-  }
 
   return {
     // experimental: {
@@ -28,13 +30,13 @@ export default defineNuxtConfig(() => {
     modules: [
       // '@anu-vue/nuxt',
       '@nuxt/devtools-ui-kit',
-      '@nuxt/devtools',
+      // '@nuxt/devtools',
       '@vueuse/nuxt',
       // https://github.com/cssninjaStudio/nuxt-media-viewer
       // '@cssninja/nuxt-media-viewer',
       '@unocss/nuxt',
-      '@nuxtjs/color-mode',
-      'nuxt-cms',
+      '@nuxtjs/color-mode'
+      // 'nuxt-cms',
       // https://github.com/e-chan1007/nuxt-monaco-editor
       // 'nuxt-monaco-editor'
     ],
@@ -50,15 +52,13 @@ export default defineNuxtConfig(() => {
     // },
 
     app: {
-      baseURL: !isDev ? ROUTE_CLIENT : '',
+      baseURL: process.env.NUXT_CMS_EMBEDDED === 'true' ? ROUTE_CLIENT : ''
     },
 
     nuxtCms,
 
-    // css: ['@anu-vue/preset-theme-default/dist/style.css'],
-
     devtoolsUIKit: {
-      dev: true,
+      dev: true
     },
 
     // unocss: {

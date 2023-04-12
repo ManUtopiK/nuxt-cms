@@ -2,16 +2,17 @@ import { existsSync } from 'node:fs'
 import { join } from 'pathe'
 import type { Nuxt } from 'nuxt/schema'
 import { addServerHandler, defineNuxtModule, createResolver, addComponentsDir, addImports, addImportsDir, addPlugin, addServerPlugin, extendPages, installModule, logger } from '@nuxt/kit'
-import type { ViteDevServer } from 'vite'
 import { searchForWorkspaceRoot } from 'vite'
 import defu from 'defu'
-import sirv from 'sirv'
 import c from 'picocolors'
+import { getPort } from 'get-port-please'
 
 import NuxtMonacoEditor from 'nuxt-monaco-editor'
 
 import { version } from '../package.json'
 import type { ModuleOptions } from '../../nuxt-cms-kit/src/types'
+import { devCmsClient, generateCmsClient } from './utils'
+
 import { clientDir, monorepoDir, packageDir, runtimeDir } from './dirs'
 import { ROUTE_CLIENT, ROUTE_ENTRY } from './constant'
 
@@ -79,78 +80,67 @@ export async function enableModule(options: ModuleOptions, nuxt: Nuxt) {
     global: true
   })
 
-  // nuxt-cms-client
-
+  /**
+   * nuxt-cms-client
+   */
   const clientDirExists = existsSync(clientDir)
+  if (clientDirExists) {
+    // Mount client
+    // Can't use process.dev here
+    if (process.env.NODE_ENV === 'development') {
+      const PORT = await getPort({ port: 12442 })
 
-  // Mount nuxt-cms-client
-  if (config.mode !== 'standalone') {
-    nuxt.hook('nitro:config', (nitroConfig) => {
-      nitroConfig.publicAssets ||= []
-      nitroConfig.publicAssets.push({
-        dir: join(monorepoDir, 'apps/nuxt-cms-client/.output/public'),
-        baseURL: ROUTE_CLIENT
-        // maxAge: 60 * 60 * 24 * 365 // 1 year
+      nuxt.hook('app:resolve', () => {
+      // Start client in a subprocess with dev mode
+        devCmsClient(['nuxi', 'dev', '--port', PORT.toString()])
       })
-    })
+
+      // Proxy client
+      nuxt.hook('vite:extendConfig', (config) => {
+        config.server ||= {}
+        // add proxy to client
+        config.server.proxy ||= {}
+        config.server.proxy[ROUTE_CLIENT] = {
+          target: `http://localhost:${PORT}`,
+          changeOrigin: true,
+          followRedirects: true
+        }
+        // add fs allow for local modules
+        config.server.fs ||= {}
+        config.server.fs.allow ||= [
+          searchForWorkspaceRoot(process.cwd())
+        ]
+        config.server.fs.allow.push(packageDir)
+      })
+    } else {
+      const clientBuildDir = join(clientDir, '.output/public')
+
+      nuxt.hook('app:resolve', () => {
+      // Check if client already been generated
+        const clientBuildExists = existsSync(clientBuildDir)
+
+        if (!clientBuildExists) {
+          logger.info(`Building Nuxt cms client from \`${clientDir}\`\n`)
+          generateCmsClient(['nuxi', 'generate'])
+        }
+      })
+
+      // Copy to output
+      // TODO Generate client directly in .output ?
+      nuxt.hook('nitro:config', (nitroConfig) => {
+        nitroConfig.publicAssets ||= []
+        nitroConfig.publicAssets.push({
+          dir: clientBuildDir,
+          baseURL: ROUTE_CLIENT
+          // maxAge: 60 * 60 * 24 * 365 // 1 year
+        })
+      })
+    }
   } else {
-    // Proxy nuxt-cms-client in dev mode
-    // const port = 39893 //3001
-    // installModule(NuxtProxy, {
-    //   options: {
-    //     target: `http://localhost:${port}`,
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //       '^/__skip_vite': '',
-    //     },
-    //     pathFilter: [ROUTE_CLIENT],
-    //   }
-    // })
-    // logger.success(`Proxy nuxt-cms-client enabled for dev mode on port ${c.yellow(port)}`)
+    // What to do ?
   }
-
-  // nuxt.hook('vite:extendConfig', (config) => {
-  //   config.server ||= {}
-  //   config.server.fs ||= {}
-  //   config.server.fs.allow ||= [
-  //     searchForWorkspaceRoot(process.cwd()),
-  //   ]
-  //   // console.log('pppp', packageDir)
-  //   config.server.fs.allow.push(clientDir)
-  // })
-
-  // nuxt.hook('vite:serverCreated', (server: ViteDevServer) => {
-  //   console.log(clientDir)
-  //   // serve the front end in production
-  //   // TODO check dev mode https://github.com/lukeed/sirv/tree/master/packages/sirv#optsdev
-  //   if (clientDirExists)
-  //     server.middlewares.use(ROUTE_CLIENT, sirv(clientDir, { single: true, dev: true }))
-  // })
 
   await nuxt.callHook('cms:initialized')
 
   logger.success(`Nuxt CMS is enabled ${c.dim(`v${version}`)} ${c.yellow('(experimental)')}`)
-
-  // @ts-ignore
-  // console.log(nuxt)
-  // nuxt.hook('nitro:config', async (nitro) => {
-  //   console.log(nitro)
-  // })
-  // nuxt.hook('content:file:beforeParse', (file) => {
-  //   console.log(file)
-  //   if (file._id.endsWith('.md')) {
-  //     // TODO Parse files to find link and build relationship database
-  //     // file.body = file.body.replace(/react/g, 'vue')
-  //   }
-  // })
-  // nuxt.hook('modules:done', async (nitro) => {
-  //   console.log(nitro)
-  //   nitro.hooks.hook('content:file:beforeParse', (file) => {
-  //     console.log(file)
-  //     if (file._id.endsWith('.md')) {
-  //       // TODO Parse files to find link and build relationship database
-  //       file.body = file.body
-  //     }
-  //   })
-  // })
 }
