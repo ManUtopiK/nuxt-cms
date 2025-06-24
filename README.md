@@ -2,7 +2,7 @@
 
 The ubiquitous Content Management System.
 
-> **Warning**: Experimental and under heavy development. All are subject to change!
+> **Warning**: ~~Experimental and under heavy development. All are subject to change!~~ I'm currently building more a modular CMS. Stay tuned!
 
 ## Main idea
 
